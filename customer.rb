@@ -1,14 +1,14 @@
 class Customer
-	require_relative 'movie.rb'
-	require_relative 'rental.rb'
+  require_relative 'movie.rb'
+  require_relative 'rental.rb'
   attr_accessor :rentals
   def initialize(name:)
-  	@name = name
-  	@rentals = []
+    @name = name
+    @rentals = []
   end
 
   def add_rental(rented)
-  	@rentals << rented
+    @rentals << rented
   end
 
   def statement
