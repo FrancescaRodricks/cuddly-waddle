@@ -1,6 +1,7 @@
+require_relative 'movie.rb'
+require_relative 'rental.rb'
+
 class Customer
-  require_relative 'movie.rb'
-  require_relative 'rental.rb'
   attr_accessor :rentals
   def initialize(name:)
     @name = name
