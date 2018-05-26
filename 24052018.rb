@@ -28,5 +28,15 @@ end
 
 print_my_name
 
+def self.foo(a, *b, **c)
+  [a, b, c]
+end
 
-Date.today.to_s
+p foo(1, 2, a:3, b:4)
+
+
+
+require 'date'
+
+p Date.today.to_s
+
