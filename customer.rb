@@ -1,5 +1,8 @@
 class Customer
-  def intitalize(name:)
+	require_relative 'movie.rb'
+	require_relative 'rental.rb'
+  attr_accessor :rentals
+  def initialize(name:)
   	@name = name
   	@rentals = []
   end
@@ -16,12 +19,12 @@ class Customer
 
       # determine amounts for each line
       case element.movie.price_code
-      when Movie::REGULAR
+      when ::Movie::REGULAR
         this_amount += 2
         this_amount += (element.days_rented - 2) * 1.5 if element.days_rented > 2
-      when Movie::NEW_RELEASE
+      when ::Movie::NEW_RELEASE
         this_amount += element.days_rented * 3
-      when Movie::CHILDRENS
+      when ::Movie::CHILDRENS
         this_amount += 1.5
         this_amount += (element.days_rented - 3) * 1.5 if element.days_rented > 3
       end
@@ -29,7 +32,7 @@ class Customer
       # add frequent renter points
       frequent_renter_points += 1
       # add bonus for a two day new release rental
-      frequent_renter_points += 1 if element.movie.price_code == Movie.NEW_RELEASE && element.days_rented > 1
+      frequent_renter_points += 1 if element.movie.price_code == ::Movie::NEW_RELEASE && element.days_rented > 1
 
       # show figures for this rental
       result += "\t" + element.movie.title + "\t" + this_amount.to_s + "\n"
@@ -41,3 +44,13 @@ class Customer
     result
   end
 end
+
+
+
+movie = Movie.new(title: 'Shrek', price_code: 1)
+rental = Rental.new(movie: movie, days_rented: 5)
+customer = Customer.new(name:'Francesca')
+customer.rentals << rental
+p customer.statement
+
+
