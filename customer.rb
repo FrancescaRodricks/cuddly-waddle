@@ -16,7 +16,7 @@ class Customer
     result = "Rental Record for #{@name}\n"
     @rentals.each do |rental|
       # show figures for this rental
-      result += "\t" + rental.movie.title + "\t" + rental.charge.to_s + "\n"
+      result += "\t" + rental.movie_title + "\t" + rental.charge.to_s + "\n"
     end
     # add footer lines
     result += "Amount owed is #{total_amount.to_s}\n"
@@ -44,8 +44,6 @@ class Customer
     # REFACTORED TO
     @rentals.inject(0.0) { | total_amount, rental| total_amount += rental.charge }
   end
-
-
 end
 
 movie = Movie.new(title: 'Shrek', price_code: 1)
