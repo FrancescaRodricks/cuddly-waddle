@@ -16,10 +16,10 @@ class Customer
     total_amount, frequent_renter_points = 0, 0
     result = "Rental Record for #{@name}\n"
     @rentals.each do |rental|
-      frequent_renter_points += calculate_frequent_renter_points(frequent_renter_points, rental)
+      frequent_renter_points += rental.calculate_frequent_renter_points
       # show figures for this rental
-      result += "\t" + rental.movie.title + "\t" + amount_for(rental).to_s + "\n"
-      total_amount += amount_for(rental)
+      result += "\t" + rental.movie.title + "\t" + rental.charge.to_s + "\n"
+      total_amount += rental.charge
     end
     # add footer lines
     result += "Amount owed is #{total_amount.to_s}\n"
@@ -28,29 +28,15 @@ class Customer
     result
   end
 
-  def calculate_frequent_renter_points(frequent_renter_points, rental)
-    (rental.movie.price_code == ::Movie::NEW_RELEASE && rental.days_rented > 1) ? 2 : 1
-  end
-
-  def amount_for(rental)
-    this_amount = 0
-    case rental.movie.price_code
-    when ::Movie::REGULAR
-      this_amount += 2
-      this_amount += (rental.days_rented - 2) * 1.5 if rental.days_rented > 2
-    when ::Movie::NEW_RELEASE
-      this_amount += rental.days_rented * 3
-    when ::Movie::CHILDRENS
-      this_amount += 1.5
-      this_amount += (rental.days_rented - 3) * 1.5 if rental.days_rented > 3
-    end
-  end
 end
 
 movie = Movie.new(title: 'Shrek', price_code: 1)
+movie2 = Movie.new(title: 'Robin Hood', price_code: 1)
 rental = Rental.new(movie: movie, days_rented: 5)
+rental2 = Rental.new(movie: movie2, days_rented: 10)
 customer = Customer.new(name:'Francesca')
 customer.rentals << rental
+customer.rentals << rental2
 p customer.statement
 
 
