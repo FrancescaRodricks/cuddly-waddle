@@ -21,7 +21,7 @@ class Customer
     # add footer lines
     result += "Amount owed is #{total_amount.to_s}\n"
     result += "You earned #{frequent_renter_points.to_s} frequent renter points"
-    puts "ORIGINAL AND REFACTORED RESULTS ARE THE SAME ? #{result == "Rental Record for Francesca\n\tShrek\t4.5\nAmount owed is 4.5\nYou earned 1 frequent renter points"}"
+    puts "ORIGINAL AND REFACTORED RESULTS ARE THE SAME ? #{result == "Rental Record for Francesca\n\tShrek\t4.5\nAmount owed is 4.5\nYou earned 1.0 frequent renter points"}"
     result
   end
 
