@@ -13,6 +13,7 @@ class Rental
   end
 
   def charge
+    p movie
     # move charge logic to movie class
     movie.charge(days_rented)
   end

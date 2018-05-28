@@ -6,26 +6,54 @@ class Movie
   # title = ninja turtles
   # price_code = 25.00 £
   attr_reader :title, :price_code
+  attr_accessor :price
   def initialize(title:, price_code:)
     @title = title
-    @price_code =  price_code
+    self.price_code = price_code
   end
 
   def charge(days_rented)
-  	this_amount = 0
-    case price_code
+    @price.charge(days_rented)
+  end
+
+  # override price code setter 
+  def price_code=(value)
+    @price_code = value
+    @price = case @price_code
     when REGULAR
-      this_amount += 2
-      this_amount += (days_rented - 2) * 1.5 if days_rented > 2
+      RegularPrice.new
     when NEW_RELEASE
-      this_amount += days_rented * 3
+      NewReleasePrice.new
     when CHILDRENS
-      this_amount += 1.5
-      this_amount += (days_rented - 3) * 1.5 if days_rented > 3
+      ChildrenPrice.new
     end
   end
 
   def frequent_renter_points(days_rented)
-  	(price_code == NEW_RELEASE && days_rented > 1) ? 2 : 1
+    (price_code == NEW_RELEASE && days_rented > 1) ? 2 : 1
+  end
+end
+
+class RegularPrice
+  def charge(days_rented)
+    this_amount = 0
+    this_amount += 2
+    this_amount += (days_rented - 2) * 1.5 if days_rented > 2
+    this_amount
+  end
+end
+
+class NewReleasePrice
+  def charge(days_rented)
+    this_amount = 0
+    this_amount += days_rented * 3
+  end
+end
+
+class ChildrenPrice
+  def charge(days_rented)
+    this_amount = 0
+    this_amount += 1.5
+    this_amount += (days_rented - 3) * 1.5 if days_rented > 3
   end
 end
