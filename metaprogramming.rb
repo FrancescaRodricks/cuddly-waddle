@@ -51,4 +51,56 @@ greater_than_five = Proc.new  { |number| number > 5 }
   end
 end
 
+d = Proc.new { puts "hi" }
 
+
+class A
+  def self.invoke_proc(p)
+    p.call
+  end
+end
+
+A.invoke_proc(d)
+
+
+
+# add fields dynamically to a model
+
+
+class Model
+  attr_reader :fields
+  @@all_fields = []   #class variable can be accessed inside of class << self
+  class << self
+    def field(field)
+      @@all_fields << field
+      attr_accessor field
+    end
+  end
+
+  def initialize
+    @fields = @@all_fields
+  end
+end
+
+class Account < Model
+  field :account_type
+  field :account_number
+  field :customer_name
+end
+
+a = Account.new
+
+
+a.account_number = 1234
+
+a.account_type = 'Current A/C'
+
+a.customer_name = 'Fran'
+
+puts a.inspect
+
+puts a.customer_name
+
+puts a.fields
+
+puts a.singleton_class.public_methods(false)
