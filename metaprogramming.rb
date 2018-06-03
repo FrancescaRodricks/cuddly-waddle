@@ -15,7 +15,7 @@ class Book
 
     def method_missing(method_name, *arguments, &block)
       puts "#{method_name} with #{arguments} #{block.call if block_given?} not defined"
-    endP
+    end
   end
 
 end
