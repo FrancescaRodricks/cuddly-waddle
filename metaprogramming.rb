@@ -73,8 +73,20 @@ class Model
   class << self
     def field(field)
       @@all_fields << field
-      attr_accessor field
+      # attr_accessor field
+      define_method field do
+        instance_variable_get("@#{field}")
+      end
+
+      define_method("#{field}=") do |arg|
+        instance_variable_set("@#{field}", arg)
+      end
     end
+  end
+
+
+  def name=name
+    @name = name
   end
 
   def initialize
