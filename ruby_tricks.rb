@@ -75,3 +75,17 @@ User.new.mobile_number
 
 
 
+
+
+# module eval
+
+class Francesca
+end
+
+
+string_method = def plays; puts "Basketball";end
+
+
+Francesca.module_eval("string_method")
+
+Francesca.new.plays
