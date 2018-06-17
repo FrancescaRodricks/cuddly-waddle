@@ -194,5 +194,38 @@ p2 = Paragraph.new('para 2')
 puts "#{p2.singleton_methods}--NO METHODS"
 
 
+# class methods are singleton methods
 
+# lets prove this
 
+class SingletonMethods
+
+  def self.singleton
+  end
+
+end
+
+puts SingletonMethods.methods(false)
+
+puts SingletonMethods.singleton_methods
+
+# class macros
+
+# attr_accessor are class macros; they can be defined on a class or module
+
+# module example
+
+module A
+  attr_accessor :name
+end
+
+class B
+  include A
+  def initialize(name)
+    @name = name
+  end
+end
+
+b  = B.new('Francheska')
+
+puts b.name
