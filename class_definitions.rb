@@ -161,3 +161,38 @@ puts l.time
 
 
 # YAY that worked :D well done!
+
+
+# Singleton Methods - methods that exist only on a single object are called singleton methods
+
+
+class Paragraph
+  attr_reader :str
+  def initialize(str)
+    @str = str
+  end
+end
+
+
+# I want to add title only to an instance of the paragraph class
+
+
+p = Paragraph.new("new para")
+
+def p.title?
+  # puts self
+  # puts p
+  self.str.upcase == self.str
+end
+
+puts p.title?
+
+puts p.singleton_methods
+
+p2 = Paragraph.new('para 2')
+
+puts "#{p2.singleton_methods}--NO METHODS"
+
+
+
+
