@@ -1,7 +1,7 @@
 class A
-	class << self
-		attr_accessor :apple
-	end
+  class << self
+    attr_accessor :apple
+  end
 end
 
 
