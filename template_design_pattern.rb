@@ -1,3 +1,5 @@
+# The Template Method Pattern
+
 class Report
   def initialize
     @title = "Monthly Report"
@@ -20,13 +22,11 @@ end
 
 Report.new.output
 
-
 # Now we need to support printing the report in the following formats:
 # 1) Plain Text
 # 2) HTML
 # 3) RTF
 # 4) PostScript
-
 
 class Report
   def initialize
@@ -62,7 +62,6 @@ end
 Report.new.output(format: :html)
 Report.new.output(format: :plain)
 
-
 # Implement a design that separates the code for the various formats
 
 # 1 create an abstract base class
@@ -89,13 +88,15 @@ class Report
   end
 
   def output_head
-    raise "called #{__method__} from the abstract class"
+    output_line(@title)
   end
 
   def output_body_start
     raise "called #{__method__} from the abstract class"
   end
 
+  # KEY TEMPLATE METHOD
+  # THIS IS NOT OVERRIDEN IN THE SUB CLASSES
   def output_body
     @text.each do |text|
       output_line(text)
@@ -124,7 +125,7 @@ class HTMLReport < Report
 
   def output_head
     puts('<head>')
-    puts("<title>#{@title}</title>")
+    output_line(@title)
     puts('</head>')
   end
 
@@ -152,7 +153,7 @@ class PlainTextReport < Report
   end
 
   def output_head
-    puts "-- #{ @title } --"
+    output_line(@title)
   end
 
   def output_body_start
@@ -170,3 +171,11 @@ class PlainTextReport < Report
 end
 
 PlainTextReport.new.output_report
+
+# Hook methods - non abstact methods
+# override default abstact class methods
+# or accepts base class default implementation
+
+# Unit test the ^^ template method pattern
+
+
