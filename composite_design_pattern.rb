@@ -28,6 +28,7 @@ class AddDryIngredientsTask < Task
     1.0
   end
 end
+
 class AddLiquidsTask < Task
   def initialize
     super('Add liquids')
@@ -49,17 +50,8 @@ class MixTask < Task
   end
 end
 
-
-class MakeBatterTask < Task
+class CompositeTask < Task
   attr_accessor :subtasks
-
-  def initialize
-    super('make batter')
-    @subtasks = []
-    add_subtasks(AddDryIngredientsTask.new)
-    add_subtasks(AddLiquidsTask.new)
-    add_subtasks(MixTask.new)
-  end
 
   def add_subtasks(task)
     subtasks.push(task)
@@ -70,8 +62,18 @@ class MakeBatterTask < Task
   end
 
   def get_time_required
-    time = 5.0
+    time = 0.0
     time += subtasks.map { |subtask| subtask.get_time_required }.reduce(:+)
+  end
+end
+
+class MakeBatterTask < CompositeTask
+  def initialize
+    super('make batter')
+    @subtasks = []
+    add_subtasks(AddDryIngredientsTask.new)
+    add_subtasks(AddLiquidsTask.new)
+    add_subtasks(MixTask.new)
   end
 end
 

@@ -138,4 +138,3 @@ end
 employee = Employee2.new('Subject', 'SubjectObserverClass', 500)
 employee.add_observer(TaxMan.new)
 employee.salary = 300
-
