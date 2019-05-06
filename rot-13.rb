@@ -34,19 +34,19 @@ def rot13(secret_messages)
   y = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm".chars
   z = [x, y].transpose
 
-      decoded_sentence = []
-      secret_messages.each do |word|
-        decoded_word = ''
-        word.each_char do |x|
-           found = x.to_s
-           found_match = z.select { |obj| obj[0] == x }.flatten
-           unless found_match.empty?
-               found = found_match.last
-           end
-          decoded_word << found.to_s
-        end
-        decoded_sentence << decoded_word
-      end
+  decoded_sentence = []
+  secret_messages.each do |word|
+    decoded_word = ''
+    word.each_char do |x|
+       found = x
+       found_match = z.select { |obj| obj[0] == x }.flatten
+       unless found_match.empty?
+           found = found_match.last
+       end
+      decoded_word << found
+    end
+    decoded_sentence << decoded_word
+  end
 
-     decoded_sentence
+ decoded_sentence
 end
