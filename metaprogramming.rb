@@ -37,6 +37,17 @@ proc.(2)
 proc[2]
 proc  === 2
 
+Book.sell("New Customer") { "John Doe" }
+# Book.new.sell("New Customer") { "John Doe" }
+
+
+class Book
+  def method_missing(method_name, *args, &block)
+    puts "Method missing called on instance method #{method_name} with args #{args} and block #{block.call if block_given?} "
+  end
+end
+
+Book.new.sell("New Customer") { "John Doe 2" }
 
 
 less_than_five = Proc.new { |number|  number > 0 && number < 5 }
